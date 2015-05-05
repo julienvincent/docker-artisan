@@ -14,5 +14,5 @@ RUN apt-get update -y && \
     php5-gd
 
 ENTRYPOINT ["php", "artisan"]
-VOLUME ["/data"]
+VOLUME ["/data/www"]
 CMD ["--help"]
