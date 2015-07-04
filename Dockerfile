@@ -1,18 +1,20 @@
-FROM debian:wheezy
+# julienvincent/artisan
 
+FROM debian:jessie
 MAINTAINER "Julien Vincent" <julienlucvincent@gmail.com>
+
+ENV HHVM_VERSION 3.7.2~jessie
 
 RUN mkdir -p /data/www
 
-RUN apt-get update -y && \
-    apt-get install -y php5-cli \
-    php5-mcrypt \
-    php5-mssql \
-    php5-mysqlnd \
-    php5-pgsql \
-    php5-sqlite \
-    php5-gd
+# Install HHVM
+RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449 && \
+    echo deb http://dl.hhvm.com/debian jessie main | tee /etc/apt/sources.list.d/hhvm.list && \
+    apt-get update -y && \
+    apt-get install -y hhvm=${HHVM_VERSION} && \
+    apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENTRYPOINT ["php", "artisan"]
 VOLUME ["/data/www"]
+
+ENTRYPOINT ["hhvm", "artisan"]
 CMD ["--help"]

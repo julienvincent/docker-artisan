@@ -1,25 +1,28 @@
-## PHP Dockerfile
+# Nginx Dockerfile
 
+This repository contains an automated **Dockerfile** of [HHVM](http://hhvm.com/)
+setup for use in docker-compose
 
-This repository contains **Dockerfile** of [PHP](http://php.net/) for [Docker](https://www.docker.com/)'s [automated build](https://registry.hub.docker.com/u/julienvincent/nginx-php/) published to the public [Docker Hub Registry](https://registry.hub.docker.com/) set up for [Laravel 5](http://laravel.com/).
+## Supported tags
 
++ `latest`
 
 ### Base Docker Image
 
-* [julienvincent/artisan](https://registry.hub.docker.com/u/julienvincent/artisan/)
-
-
-### Installation
-
-1. Install [Docker](https://www.docker.com/).
-
-2. Download [automated build](https://registry.hub.docker.com/u/julienvincent/artisan/) from public [Docker Hub Registry](https://registry.hub.docker.com/): 'docker pull julienvincent/artisan'
-
-   (alternatively, you can build an image from Dockerfile: 'docker build -t="julienvincent/artisan" github.com/julienvincent/docker-artisan'`')
-
+* [debian:jessie](https://registry.hub.docker.com/_/debian/)
 
 ### Usage
 
-    docker run -d -p 80:80 julienvincent/artisan
+docker-compose.yml:
 
-docker-compose run artisan <command>
+    artisan:
+      image: julienvincent/artisan
+      volumes:
+        - laravel/folder:/data/www
+      working_dir: /data/www
+      links:
+        - db-container
+
+using:
+
+    docker-compose run artisan tinker
