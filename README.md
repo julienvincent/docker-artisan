@@ -1,4 +1,4 @@
-# Nginx Dockerfile
+# Artisan Dockerfile
 
 This repository contains an automated **Dockerfile** of [HHVM](http://hhvm.com/)
 setup for use in docker-compose
@@ -21,7 +21,7 @@ docker-compose.yml:
         - laravel/folder:/data/www
       working_dir: /data/www
       links:
-        - db-container
+        - database-container
 
 using:
 
